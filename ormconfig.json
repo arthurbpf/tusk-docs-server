@@ -1,0 +1,13 @@
+{
+	"type": "postgres",
+	"host": "localhost",
+	"port": 5432,
+	"username": "postgres",
+	"password": "docker",
+	"database": "tanque_cheio",
+	"migrations": ["./src/infra/typeorm/migrations/*.ts"],
+	"entities": ["./src/**/typeorm/entities/*.ts"],
+	"cli": {
+		"migrationsDir": "./src/infra/typeorm/migrations"
+	}
+}

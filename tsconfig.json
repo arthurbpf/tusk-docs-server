@@ -2,13 +2,21 @@
 	"compilerOptions": {
 		"target": "es6",
 		"module": "commonjs",
+		"moduleResolution": "node",
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"baseUrl": "./src",
 		"allowJs": true,
 		"strict": true,
+		"paths": {
+			"@modules/*": ["modules/*"],
+			"@shared/*": ["shared/*"]
+		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
-	}
+		"forceConsistentCasingInFileNames": true,
+		"strictPropertyInitialization": false,
+		"experimentalDecorators": true
+	},
+	"include": ["./src/*"]
 }
