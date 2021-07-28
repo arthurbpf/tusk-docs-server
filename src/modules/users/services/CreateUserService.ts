@@ -1,6 +1,7 @@
 import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 import User from '../infra/typeorm/entities/User';
 import HashProvider from '@shared/providers/HashProvider';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
 	username: string;
@@ -10,7 +11,7 @@ interface IRequest {
 }
 
 export default class CreateUserService {
-	private usersRepository: UsersRepository;
+	private usersRepository: IUsersRepository;
 
 	constructor() {
 		this.usersRepository = new UsersRepository();

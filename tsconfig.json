@@ -10,13 +10,13 @@
 		"strict": true,
 		"paths": {
 			"@modules/*": ["modules/*"],
-			"@shared/*": ["shared/*"]
+			"@shared/*": ["shared/*"],
+			"@config/*": ["config/*"]
 		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": false,
 		"experimentalDecorators": true
-	},
-	"include": ["./src/*"]
+	}
 }

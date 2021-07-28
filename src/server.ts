@@ -3,7 +3,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 
-import usersRouter from './modules/users/infra/http/routers/user.routes';
+import routes from '@shared/infra/http/routes';
+import errorHandler from '@shared/infra/http/errors/errorHandler';
 
 const main = async () => {
 	dotenv.config();
@@ -15,7 +16,8 @@ const main = async () => {
 	await connection.runMigrations();
 
 	server.use(express.json());
-	server.use('/users', usersRouter);
+	server.use(routes);
+	server.use(errorHandler);
 	server.listen(port, () => {
 		console.log('Server listening!');
 	});

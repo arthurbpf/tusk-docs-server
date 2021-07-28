@@ -5,7 +5,7 @@
 	"username": "postgres",
 	"password": "docker",
 	"database": "tanque_cheio",
-	"migrations": ["./src/infra/typeorm/migrations/*.ts"],
+	"migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
 	"entities": ["./src/**/typeorm/entities/*.ts"],
 	"cli": {
 		"migrationsDir": "./src/infra/typeorm/migrations"
