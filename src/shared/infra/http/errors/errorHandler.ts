@@ -7,6 +7,10 @@ export default function (
 	_request: Request,
 	response: Response,
 	_next: NextFunction,
-): void {
-	response.status(err.statusCode).json({ error: err.message });
+): Response {
+	if (err instanceof AppError) {
+		return response.status(err.statusCode).json({ message: err.message });
+	}
+
+	return response.status(500).json({ message: 'Internal server error.' });
 }

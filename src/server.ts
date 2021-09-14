@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 
 import routes from '@shared/infra/http/routes';
 import errorHandler from '@shared/infra/http/errors/errorHandler';
+import { errors } from 'celebrate';
 
 const main = async () => {
 	dotenv.config();
@@ -17,6 +18,7 @@ const main = async () => {
 
 	server.use(express.json());
 	server.use(routes);
+	server.use(errors());
 	server.use(errorHandler);
 	server.listen(port, () => {
 		console.log('Server listening!');
