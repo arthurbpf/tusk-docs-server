@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	JoinColumn,
+	OneToOne,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
+import Company from './Company';
+import Employee from './Employee';
 
 @Entity('users')
 export default class User {
@@ -19,4 +27,12 @@ export default class User {
 
 	@Column({ type: 'varchar', nullable: true })
 	profilePicture?: string;
+
+	@OneToOne(() => Company)
+	@JoinColumn()
+	company: Company;
+
+	@OneToOne(() => Employee)
+	@JoinColumn()
+	employee: Employee;
 }
