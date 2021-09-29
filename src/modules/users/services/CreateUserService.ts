@@ -26,6 +26,7 @@ interface IEmployeeRequest extends IBaseUserRequest {
 }
 
 type IRequest = ICompanyRequest | IEmployeeRequest;
+
 export default class CreateUserService {
 	private usersRepository: IUsersRepository;
 
@@ -68,8 +69,7 @@ export default class CreateUserService {
 				username,
 				company: createdCompany,
 			});
-		}
-		if (employee) {
+		} else if (employee) {
 			const service = new CreateEmployeeService();
 			const createdEmployee = await service.execute(employee);
 

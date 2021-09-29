@@ -50,8 +50,9 @@ export default class AuthenticateUserService {
 			throw genericError;
 		}
 
-		const token = sign({ username: user.username }, authConfig.jwt.secret, {
+		const token = sign({}, authConfig.jwt.secret, {
 			expiresIn: authConfig.jwt.expiresIn,
+			subject: user.id,
 		});
 
 		return token;

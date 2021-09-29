@@ -24,4 +24,14 @@ export default class EmployeesRepository implements IEmployeeRepository {
 
 		return await orm.save(createdCompany);
 	}
+
+	async findById(id: string): Promise<Employee | undefined> {
+		const orm = this.ormRepository;
+
+		return await orm.findOne({
+			where: {
+				id,
+			},
+		});
+	}
 }

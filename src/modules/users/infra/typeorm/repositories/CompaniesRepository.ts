@@ -23,4 +23,14 @@ export default class CompaniesRepository implements ICompaniesRepository {
 
 		return await orm.save(createdCompany);
 	}
+
+	async findById(id: string): Promise<Company | undefined> {
+		const orm = this.ormRepository;
+
+		return await orm.findOne({
+			where: {
+				id,
+			},
+		});
+	}
 }
