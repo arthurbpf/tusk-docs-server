@@ -17,6 +17,7 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": false,
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"resolveJsonModule": true
 	}
 }
