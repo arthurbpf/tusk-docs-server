@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import CreateUserService from '@modules/users/services/CreateUserService';
+import AppError from '@shared/errors/AppError';
 
 export default class UsersController {
 	public async create(
@@ -18,13 +19,25 @@ export default class UsersController {
 				nickname,
 				password,
 				username,
-				employee,
 				company,
+				employee,
 			});
 
 			return response.json(createdUser);
 		} catch (error) {
 			next(error);
 		}
+	}
+
+	public async getLoggedUserInfo(
+		request: Request,
+		response: Response,
+		next: NextFunction,
+	): Promise<Response | undefined> {
+		if (!request.user) {
+			throw new AppError('Cannot be called by unlogged user', 401);
+		}
+
+		return response.json(request.user);
 	}
 }

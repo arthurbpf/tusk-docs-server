@@ -17,12 +17,10 @@ interface IBaseUserRequest {
 
 interface ICompanyRequest extends IBaseUserRequest {
 	company: ICreateCompanyDTO;
-	employee: never;
 }
 
 interface IEmployeeRequest extends IBaseUserRequest {
 	employee: ICreateEmployeeDTO;
-	company: never;
 }
 
 type IRequest = ICompanyRequest | IEmployeeRequest;
@@ -37,7 +35,7 @@ export default class CreateUserService {
 	private hashProvider = new HashProvider();
 
 	async execute(data: IRequest): Promise<User> {
-		const { email, nickname, password, username, company, employee } = data;
+		const { email, nickname, password, username } = data;
 
 		const emailExits = await this.usersRepository.findByEmail(email);
 
@@ -58,8 +56,9 @@ export default class CreateUserService {
 
 		let createdUser = undefined;
 
-		if (company) {
+		if ((data as ICompanyRequest).company) {
 			const service = new CreateCompanyService();
+			const company = (data as ICompanyRequest).company;
 			const createdCompany = await service.execute(company);
 
 			createdUser = await this.usersRepository.create({
@@ -69,8 +68,9 @@ export default class CreateUserService {
 				username,
 				company: createdCompany,
 			});
-		} else if (employee) {
+		} else if ((data as IEmployeeRequest).employee) {
 			const service = new CreateEmployeeService();
+			const employee = (data as IEmployeeRequest).employee;
 			const createdEmployee = await service.execute(employee);
 
 			createdUser = await this.usersRepository.create({

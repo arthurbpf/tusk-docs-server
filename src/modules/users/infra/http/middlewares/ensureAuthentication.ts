@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 import { Response, Request, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import UsersRepository from '../../typeorm/repositories/UsersRepository';
+import GetUserInfoService from '@modules/users/services/GetUserInfoService';
 
 interface TokenPayload {
 	iat: number;
@@ -15,24 +15,29 @@ export default async function ensureAuthentication(
 	response: Response,
 	next: NextFunction,
 ): Promise<void> {
-	const authHeader = request.headers.authorization;
-
-	if (!authHeader) {
-		throw new AppError('JWT token is missing', 401);
-	}
-
-	const [, token] = authHeader.split(' ');
-
-	const { secret } = authConfig.jwt;
-
 	try {
-		const decoded = verify(token, secret);
+		const authHeader = request.headers.authorization;
+
+		if (!authHeader) {
+			throw new AppError('JWT token is missing', 401);
+		}
+
+		const [, token] = authHeader.split(' ');
+
+		const { secret } = authConfig.jwt;
+
+		let decoded;
+		try {
+			decoded = verify(token, secret);
+		} catch (error) {
+			throw new AppError('Invalid token', 401);
+		}
 
 		const { sub } = decoded as TokenPayload;
 
-		const repository = new UsersRepository();
+		const getUserInfo = new GetUserInfoService();
 
-		const user = await repository.findById(sub);
+		const user = await getUserInfo.execute(sub);
 
 		if (!user) {
 			throw new AppError('User not found', 401);
@@ -41,7 +46,7 @@ export default async function ensureAuthentication(
 		request.user = user;
 
 		return next();
-	} catch {
-		throw new AppError('Invalid JWT token', 401);
+	} catch (error) {
+		next(error);
 	}
 }
