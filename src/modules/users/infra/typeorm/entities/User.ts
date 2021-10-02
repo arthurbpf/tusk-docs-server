@@ -1,9 +1,11 @@
 import {
 	Column,
+	CreateDateColumn,
 	Entity,
 	JoinColumn,
 	OneToOne,
 	PrimaryGeneratedColumn,
+	UpdateDateColumn,
 } from 'typeorm';
 import Company from './Company';
 import Employee from './Employee';
@@ -35,4 +37,10 @@ export default class User {
 	@OneToOne(() => Employee)
 	@JoinColumn()
 	employee: Employee;
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
 }
