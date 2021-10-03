@@ -72,6 +72,31 @@
 					}
 				}
 			}
+		},
+		"/clients": {
+			"post": {
+				"summary": "Creates a client",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthObject"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "A JSON object representing logged user"
+					}
+				}
+			}
 		}
 	},
 	"components": {
@@ -148,6 +173,17 @@
 						"type": "string"
 					},
 					"password": {
+						"type": "string"
+					}
+				}
+			},
+			"ClientCreation": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
 						"type": "string"
 					}
 				}
