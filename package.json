@@ -6,8 +6,9 @@
 	"author": "Arthur Fernandes <arthurbpfernandes@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"postinstall": "yarn tsc",
-		"start": "node dist/server.js",
+		"postinstall": "yarn build",
+		"build": "ttsc",
+		"start": "node ./dist/server.js",
 		"dev:start": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch ./node_modules/ ./src/server.ts",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
@@ -33,7 +34,9 @@
 		"eslint-config-prettier": "^8.3.0",
 		"prettier": "^2.3.2",
 		"ts-node-dev": "^1.1.8",
-		"tsconfig-paths": "^3.10.1",
-		"typescript": "^4.3.5"
+		"tsconfig-paths": "^3.11.0",
+		"ttypescript": "^1.5.12",
+		"typescript": "^4.3.5",
+		"typescript-transform-paths": "^3.3.1"
 	}
 }
