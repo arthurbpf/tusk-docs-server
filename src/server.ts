@@ -19,6 +19,9 @@ const main = async () => {
 
 	const postgresConnectionInfo: PostgresConnectionOptions = {
 		type: 'postgres',
+		ssl: {
+			rejectUnauthorized: false,
+		},
 		migrations: [
 			join(
 				__dirname,
