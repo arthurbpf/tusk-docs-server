@@ -6,6 +6,10 @@
 	},
 	"servers": [
 		{
+			"url": "https://tusk-docs.herokuapp.com",
+			"description": "Production"
+		},
+		{
 			"url": "http://localhost:3333",
 			"description": "Local environment"
 		}
