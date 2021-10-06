@@ -7,7 +7,7 @@ export default class ClientsController {
 	public async create(
 		request: Request,
 		response: Response,
-		next: NextFunction,
+		_next: NextFunction,
 	): Promise<Response | undefined> {
 		const { name, description } = request.body;
 
@@ -29,8 +29,8 @@ export default class ClientsController {
 	public async listUserClients(
 		request: Request,
 		response: Response,
-		next: NextFunction,
-	) {
+		_next: NextFunction,
+	): Promise<Response | undefined> {
 		if (!request.user) {
 			throw new AppError('Unauthorized', 401);
 		}
