@@ -2,13 +2,9 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	JoinColumn,
-	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import Company from './Company';
-import Employee from './Employee';
 
 @Entity('users')
 export default class User {
@@ -29,14 +25,6 @@ export default class User {
 
 	@Column({ type: 'varchar', nullable: true })
 	profilePicture?: string;
-
-	@OneToOne(() => Company)
-	@JoinColumn()
-	company: Company;
-
-	@OneToOne(() => Employee)
-	@JoinColumn()
-	employee: Employee;
 
 	@CreateDateColumn()
 	createdAt: Date;

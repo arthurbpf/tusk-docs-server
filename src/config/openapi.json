@@ -23,21 +23,14 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"anyOf": [
-									{
-										"$ref": "#/components/schemas/Company"
-									},
-									{
-										"$ref": "#/components/schemas/Employee"
-									}
-								]
+								"$ref": "#/components/schemas/CreateUserDTO"
 							}
 						}
 					}
 				},
 				"responses": {
 					"200": {
-						"description": "A JSON object representing created user"
+						"description": "A object representing created user"
 					}
 				}
 			}
@@ -52,7 +45,7 @@
 				],
 				"responses": {
 					"200": {
-						"description": "A JSON object representing logged user"
+						"description": "A object representing logged user"
 					}
 				}
 			}
@@ -90,14 +83,27 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/AuthObject"
+								"$ref": "#/components/schemas/CreateClientDTO"
 							}
 						}
 					}
 				},
 				"responses": {
 					"200": {
-						"description": "A JSON object representing logged user"
+						"description": "A object representing the created client"
+					}
+				}
+			},
+			"get": {
+				"summary": "Retrieves user's client list",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A list of clients created by logged user"
 					}
 				}
 			}
@@ -105,7 +111,7 @@
 	},
 	"components": {
 		"schemas": {
-			"Company": {
+			"CreateUserDTO": {
 				"type": "object",
 				"properties": {
 					"email": {
@@ -119,51 +125,6 @@
 					},
 					"password": {
 						"type": "string"
-					},
-					"company": {
-						"type": "object",
-						"properties": {
-							"legalName": {
-								"type": "string"
-							},
-							"businessName": {
-								"type": "string"
-							},
-							"registration": {
-								"type": "string"
-							}
-						}
-					}
-				}
-			},
-			"Employee": {
-				"type": "object",
-				"properties": {
-					"email": {
-						"type": "string"
-					},
-					"nickname": {
-						"type": "string"
-					},
-					"username": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"employee": {
-						"type": "object",
-						"properties": {
-							"fullName": {
-								"type": "string"
-							},
-							"phoneNumber": {
-								"type": "string"
-							},
-							"registration": {
-								"type": "string"
-							}
-						}
 					}
 				}
 			},
@@ -181,7 +142,7 @@
 					}
 				}
 			},
-			"ClientCreation": {
+			"CreateClientDTO": {
 				"type": "object",
 				"properties": {
 					"name": {

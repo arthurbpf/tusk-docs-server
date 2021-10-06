@@ -3,27 +3,13 @@ import User from '../infra/typeorm/entities/User';
 import HashProvider from '@shared/providers/HashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
-import ICreateCompanyDTO from '../dtos/ICreateCompanyDTO';
-import CreateCompanyService from './CreateCompanyService';
-import CreateEmployeeService from './CreateEmployeeService';
-import ICreateEmployeeDTO from '../dtos/ICreateEmployeeDTO';
 
-interface IBaseUserRequest {
+interface IRequest {
 	username: string;
 	password: string;
 	nickname: string;
 	email: string;
 }
-
-interface ICompanyRequest extends IBaseUserRequest {
-	company: ICreateCompanyDTO;
-}
-
-interface IEmployeeRequest extends IBaseUserRequest {
-	employee: ICreateEmployeeDTO;
-}
-
-type IRequest = ICompanyRequest | IEmployeeRequest;
 
 export default class CreateUserService {
 	private usersRepository: IUsersRepository;
@@ -54,38 +40,12 @@ export default class CreateUserService {
 			);
 		}
 
-		let createdUser = undefined;
-
-		if ((data as ICompanyRequest).company) {
-			const service = new CreateCompanyService();
-			const company = (data as ICompanyRequest).company;
-			const createdCompany = await service.execute(company);
-
-			createdUser = await this.usersRepository.create({
-				email,
-				nickname,
-				password: await this.hashProvider.hash(password),
-				username,
-				company: createdCompany,
-			});
-		} else if ((data as IEmployeeRequest).employee) {
-			const service = new CreateEmployeeService();
-			const employee = (data as IEmployeeRequest).employee;
-			const createdEmployee = await service.execute(employee);
-
-			createdUser = await this.usersRepository.create({
-				email,
-				nickname,
-				password: await this.hashProvider.hash(password),
-				username,
-				employee: createdEmployee,
-			});
-		} else {
-			throw new AppError(
-				'Please provide either company or employee information',
-				400,
-			);
-		}
+		const createdUser = await this.usersRepository.create({
+			email,
+			nickname,
+			password: await this.hashProvider.hash(password),
+			username,
+		});
 
 		return createdUser;
 	}

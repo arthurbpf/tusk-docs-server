@@ -7,5 +7,6 @@ const clientsController = new ClientsController();
 
 router.use(ensureAuthentication);
 router.post('/', clientsController.create);
+router.get('/', clientsController.listUserClients);
 
 export default router;
