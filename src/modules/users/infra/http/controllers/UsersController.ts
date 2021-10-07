@@ -10,8 +10,7 @@ export default class UsersController {
 	): Promise<Response | undefined> {
 		const service = new CreateUserService();
 
-		const { email, nickname, password, username, employee, company } =
-			request.body;
+		const { email, nickname, password, username } = request.body;
 
 		try {
 			const createdUser = await service.execute({
@@ -19,8 +18,6 @@ export default class UsersController {
 				nickname,
 				password,
 				username,
-				company,
-				employee,
 			});
 
 			return response.json(createdUser);
@@ -32,7 +29,7 @@ export default class UsersController {
 	public async getLoggedUserInfo(
 		request: Request,
 		response: Response,
-		next: NextFunction,
+		_next: NextFunction,
 	): Promise<Response | undefined> {
 		if (!request.user) {
 			throw new AppError('Cannot be called by unlogged user', 401);

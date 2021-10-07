@@ -13,15 +13,13 @@ export default class UsersRepository implements IUsersRepository {
 	async create(dto: ICreateUserDTO): Promise<User> {
 		const orm = this.ormRepository;
 
-		const { username, password, email, nickname, company, employee } = dto;
+		const { username, password, email, nickname } = dto;
 
 		const createdUser = orm.create({
 			username,
 			password,
 			email,
 			nickname,
-			company,
-			employee,
 		});
 
 		return await orm.save(createdUser);
