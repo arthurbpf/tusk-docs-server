@@ -19,9 +19,6 @@ const main = async () => {
 
 	const postgresConnectionInfo: PostgresConnectionOptions = {
 		type: 'postgres',
-		ssl: {
-			rejectUnauthorized: false,
-		},
 		migrations: [
 			join(
 				__dirname,
@@ -47,6 +44,9 @@ const main = async () => {
 	if (process.env.DATABASE_URL) {
 		Object.assign(postgresConnectionInfo, {
 			url: process.env.DATABASE_URL,
+			ssl: {
+				rejectUnauthorized: false,
+			},
 		});
 	} else {
 		Object.assign(postgresConnectionInfo, {
