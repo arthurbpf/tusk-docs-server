@@ -52,7 +52,7 @@
 		},
 		"/sessions": {
 			"post": {
-				"description": "Authenticate user",
+				"summary": "Authenticate user",
 				"requestBody": {
 					"required": true,
 					"content": {
