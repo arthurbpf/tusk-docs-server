@@ -18,7 +18,7 @@ export default class ClientsController {
 		}
 
 		return response.json(
-			createClientService.execute({
+			await createClientService.execute({
 				name,
 				description,
 				createdBy: request.user,
@@ -37,6 +37,6 @@ export default class ClientsController {
 
 		const listUserClients = new ListUserClientsService();
 
-		return response.json(listUserClients.execute(request.user));
+		return response.json(await listUserClients.execute(request.user));
 	}
 }

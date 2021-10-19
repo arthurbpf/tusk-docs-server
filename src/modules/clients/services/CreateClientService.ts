@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import ICreateClientDTO from '../dtos/ICreateClientDTO';
 import Client from '../infra/typeorm/entities/Client';
 import ClientsRepository from '../infra/typeorm/repositories/ClientsRepository';
@@ -11,6 +12,19 @@ export default class CreateClientService {
 	}
 
 	public async execute(dto: ICreateClientDTO): Promise<Client> {
-		return await this.clientsRepository.create(dto);
+		const { name, description, createdBy } = dto;
+
+		if (!name) {
+			throw new AppError('Name must not be empty.', 401);
+		}
+		if (!description) {
+			throw new AppError('Description must not be empty.', 401);
+		}
+
+		return await this.clientsRepository.create({
+			name,
+			description,
+			createdBy,
+		});
 	}
 }
