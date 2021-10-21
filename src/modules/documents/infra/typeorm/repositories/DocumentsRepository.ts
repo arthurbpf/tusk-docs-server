@@ -1,6 +1,6 @@
 import Client from '@modules/clients/infra/typeorm/entities/Client';
 import ICreateDocumentDTO from '@modules/documents/dtos/ICreateDocumentDTO';
-import IDocumentsRepository from '@modules/documents/repositories/IDocuementsRepository';
+import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
 import { getRepository, Repository } from 'typeorm';
 import Document from '../entities/Document';
 
