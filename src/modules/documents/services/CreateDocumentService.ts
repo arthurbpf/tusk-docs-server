@@ -7,7 +7,9 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
 	title: string;
 	description: string;
-	ownerId: string;
+	clientId: string;
+	fileBuffer: Buffer;
+	originalFileName: string;
 }
 
 export default class CreateDocumentService {
@@ -18,7 +20,13 @@ export default class CreateDocumentService {
 	}
 
 	public async execute(data: IRequest): Promise<Document> {
-		const { title, description, ownerId } = data;
+		const {
+			title,
+			description,
+			clientId: ownerId,
+			fileBuffer,
+			originalFileName,
+		} = data;
 
 		const findClientService = new FindUserByIdService();
 
@@ -32,6 +40,8 @@ export default class CreateDocumentService {
 			title,
 			description,
 			owner,
+			fileBuffer,
+			originalFileName,
 		});
 	}
 }

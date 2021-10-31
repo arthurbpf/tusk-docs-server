@@ -4,4 +4,6 @@ export default interface ICreateClientDTO {
 	title: string;
 	description: string;
 	owner: Client;
+	fileBuffer: Buffer;
+	originalFileName: string;
 }

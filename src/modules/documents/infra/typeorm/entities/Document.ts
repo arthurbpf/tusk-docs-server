@@ -20,6 +20,12 @@ export default class Document {
 	@Column({ type: 'varchar' })
 	description: string;
 
+	@Column({ type: 'bytea' })
+	file: Buffer;
+
+	@Column({ type: 'varchar' })
+	originalFileName: string;
+
 	@ManyToOne(() => Client)
 	@JoinColumn()
 	owner: Client;

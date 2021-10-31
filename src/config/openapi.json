@@ -107,6 +107,44 @@
 					}
 				}
 			}
+		},
+		"/documents": {
+			"post": {
+				"summary": "Creates a document",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateDocuementDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "A object representing the created client"
+					}
+				}
+			},
+			"get": {
+				"summary": "Retrieves client's docuements list",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "A list of clients created by logged user"
+					}
+				}
+			}
 		}
 	},
 	"components": {
@@ -150,6 +188,24 @@
 					},
 					"description": {
 						"type": "string"
+					}
+				}
+			},
+			"CreateDocumentDTO": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"clientId": {
+						"type": "string"
+					},
+					"file": {
+						"type": "string",
+						"format": "binary"
 					}
 				}
 			}

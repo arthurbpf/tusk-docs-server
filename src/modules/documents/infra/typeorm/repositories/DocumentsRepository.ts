@@ -12,12 +12,14 @@ export default class DocumentsRepository implements IDocumentsRepository {
 	}
 
 	public async create(dto: ICreateDocumentDTO): Promise<Document> {
-		const { title, description, owner } = dto;
+		const { title, description, owner, fileBuffer, originalFileName } = dto;
 
 		const createdDocument = this.ormRepository.create({
 			title,
 			description,
 			owner,
+			file: fileBuffer,
+			originalFileName,
 		});
 
 		return await this.ormRepository.save(createdDocument);
