@@ -121,19 +121,19 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CreateDocuementDTO"
+								"$ref": "#/components/schemas/CreateDocumentDTO"
 							}
 						}
 					}
 				},
 				"responses": {
 					"200": {
-						"description": "A object representing the created client"
+						"description": "A object representing the created document"
 					}
 				}
 			},
 			"get": {
-				"summary": "Retrieves client's docuements list",
+				"summary": "Retrieves client's documents list",
 				"security": [
 					{
 						"bearerAuth": []
