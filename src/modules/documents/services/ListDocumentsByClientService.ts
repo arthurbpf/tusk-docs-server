@@ -5,43 +5,27 @@ import FindClientByIdService from '@modules/clients/services/FindClientByIdServi
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
-	title: string;
-	description: string;
-	clientId: string;
-	fileBuffer: Buffer;
-	originalFileName: string;
+	ownerId: string;
 }
 
-export default class CreateDocumentService {
+export default class ListDocumentService {
 	private documentsRepository: IDocumentsRepository;
 
 	constructor() {
 		this.documentsRepository = new DocumentsRepository();
 	}
 
-	public async execute(data: IRequest): Promise<Document> {
-		const {
-			title,
-			description,
-			clientId: ownerId,
-			fileBuffer,
-			originalFileName,
-		} = data;
+	public async execute(data: IRequest): Promise<Document[]> {
+		const { ownerId } = data;
 
 		const findClientService = new FindClientByIdService();
 
-		const owner = await findClientService.execute(ownerId);
+		const client = await findClientService.execute(ownerId);
 
-		if (!owner) {
-			throw new AppError('Client with specified ID not found', 401);
+		if (!client) {
+			throw new AppError('Client with specified id not found', 401);
 		}
 
-		return await this.documentsRepository.create({
-			title,
-			description,
-			owner,
-			fileBuffer,
-			originalFileName,
-		});
+		return await this.documentsRepository.listByClient(client);
 	}
 }

@@ -1,6 +1,7 @@
 import Client from '@modules/clients/infra/typeorm/entities/Client';
 import ICreateDocumentDTO from '@modules/documents/dtos/ICreateDocumentDTO';
 import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
+import IFilter from '@shared/dtos/IFilter';
 import { getRepository, Repository } from 'typeorm';
 import Document from '../entities/Document';
 
@@ -33,7 +34,15 @@ export default class DocumentsRepository implements IDocumentsRepository {
 		});
 	}
 
-	public async findByClient(client: Client): Promise<Document[]> {
+	public async list(filters: IFilter[]): Promise<Document[]> {
+		return await this.ormRepository.find({
+			where: {
+				filters,
+			},
+		});
+	}
+
+	public async listByClient(client: Client): Promise<Document[]> {
 		return await this.ormRepository.find({
 			where: {
 				owner: client,

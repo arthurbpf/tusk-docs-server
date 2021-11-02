@@ -11,5 +11,6 @@ const documentsController = new DocumentsController();
 
 router.use(ensureAuthentication);
 router.post('/', upload.single('file'), documentsController.create);
+router.get('/', documentsController.listDocuments);
 
 export default router;

@@ -2,7 +2,7 @@ import Client from '../infra/typeorm/entities/Client';
 import ClientsRepository from '../infra/typeorm/repositories/ClientsRepository';
 import IClientsRepository from '../repositories/IClientsRepository';
 
-export default class CreateClientService {
+export default class FindClientByIdService {
 	private clientsRepository: IClientsRepository;
 
 	constructor() {
