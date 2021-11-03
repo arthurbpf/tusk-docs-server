@@ -1,7 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import AppError from '@shared/errors/AppError';
-import { url } from 'inspector';
 
 interface ImageInfo {
 	url: string;
