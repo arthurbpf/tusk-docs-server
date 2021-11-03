@@ -3,6 +3,7 @@ import DocumentsRepository from '../infra/typeorm/repositories/DocumentsReposito
 import IDocumentsRepository from '../repositories/IDocumentsRepository';
 import FindClientByIdService from '@modules/clients/services/FindClientByIdService';
 import AppError from '@shared/errors/AppError';
+import ImageBbProvider from '@shared/providers/StorageProvider/ImageBbProvider';
 
 interface IRequest {
 	title: string;
@@ -36,11 +37,16 @@ export default class CreateDocumentService {
 			throw new AppError('Client with specified ID not found', 401);
 		}
 
+		const imageProvider = new ImageBbProvider();
+
+		const fileUrl = await imageProvider.saveFile(fileBuffer);
+
 		return await this.documentsRepository.create({
 			title,
 			description,
 			owner,
-			fileBuffer,
+
+			fileUrl,
 			originalFileName,
 		});
 	}

@@ -6,6 +6,7 @@ declare global {
 		interface ProcessEnv {
 			TOKEN_SECRET: string;
 			DATABASE_URL: string;
+			IMAGE_BB_KEY: string;
 		}
 	}
 

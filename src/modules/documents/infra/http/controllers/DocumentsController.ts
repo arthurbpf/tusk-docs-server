@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import CreateDocumentService from '@modules/documents/services/CreateDocumentService';
 import AppError from '@shared/errors/AppError';
-import { readFileSync } from 'fs';
 import ListDocumentsByClientService from '@modules/documents/services/ListDocumentsByClientService';
 
 export default class DocumentsController {
@@ -18,15 +17,13 @@ export default class DocumentsController {
 			throw new AppError('A file is needed for document creation', 401);
 		}
 
-		const fileBuffer = readFileSync(file.path);
-
 		const service = new CreateDocumentService();
 
 		const document = await service.execute({
 			title,
 			description,
 			clientId,
-			fileBuffer,
+			fileBuffer: file.buffer,
 			originalFileName: file.originalname,
 		});
 
