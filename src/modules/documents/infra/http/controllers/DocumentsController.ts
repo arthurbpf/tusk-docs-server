@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import CreateDocumentService from '@modules/documents/services/CreateDocumentService';
 import AppError from '@shared/errors/AppError';
-import ListDocumentsByClientService from '@modules/documents/services/ListDocumentsByClientService';
 
 export default class DocumentsController {
 	public async create(
@@ -17,17 +16,21 @@ export default class DocumentsController {
 			throw new AppError('A file is needed for document creation', 401);
 		}
 
-		const service = new CreateDocumentService();
+		try {
+			const service = new CreateDocumentService();
 
-		const document = await service.execute({
-			title,
-			description,
-			clientId,
-			fileBuffer: file.buffer,
-			originalFileName: file.originalname,
-		});
+			const document = await service.execute({
+				title,
+				description,
+				clientId,
+				fileBuffer: file.buffer,
+				originalFileName: file.originalname,
+			});
 
-		return response.json(document);
+			return response.json(document);
+		} catch (error) {
+			next(error);
+		}
 	}
 
 	public async listDocuments(
@@ -41,12 +44,12 @@ export default class DocumentsController {
 			throw new AppError('A owner id must be specified', 401);
 		}
 
-		const service = new ListDocumentsByClientService();
+		// const service = new ListDocumentsByClientService();
 
-		const documents = await service.execute({
-			ownerId,
-		});
+		// const documents = await service.execute({
+		// 	ownerId,
+		// });
 
-		return response.json(documents);
+		return response.json(/*documents*/);
 	}
 }

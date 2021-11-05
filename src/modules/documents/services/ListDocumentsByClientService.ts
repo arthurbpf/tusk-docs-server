@@ -1,14 +1,14 @@
 import Document from '@modules/documents/infra/typeorm/entities/Document';
-import DocumentsRepository from '../infra/typeorm/repositories/DocumentsRepository';
-import IDocumentsRepository from '../repositories/IDocumentsRepository';
 import FindClientByIdService from '@modules/clients/services/FindClientByIdService';
+import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
+import DocumentsRepository from '@modules/documents/infra/typeorm/repositories/DocumentsRepository';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
 	ownerId: string;
 }
 
-export default class ListDocumentService {
+export default class ListDocumentsByClientService {
 	private documentsRepository: IDocumentsRepository;
 
 	constructor() {

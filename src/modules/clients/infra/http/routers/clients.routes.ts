@@ -8,5 +8,6 @@ const clientsController = new ClientsController();
 router.use(ensureAuthentication);
 router.post('/', clientsController.create);
 router.get('/', clientsController.listUserClients);
+router.get('/:id/documents', clientsController.listClientsDocuments);
 
 export default router;

@@ -1,9 +1,9 @@
-import Document from '@modules/documents/infra/typeorm/entities/Document';
 import DocumentsRepository from '../infra/typeorm/repositories/DocumentsRepository';
 import IDocumentsRepository from '../repositories/IDocumentsRepository';
-import FindClientByIdService from '@modules/clients/services/FindClientByIdService';
 import AppError from '@shared/errors/AppError';
 import ImageBbProvider from '@shared/providers/StorageProvider/ImageBbProvider';
+import FindClientByIdService from '@modules/clients/services/FindClientByIdService';
+import Document from '@modules/documents/infra/typeorm/entities/Document';
 
 interface IRequest {
 	title: string;
@@ -45,7 +45,6 @@ export default class CreateDocumentService {
 			title,
 			description,
 			owner,
-
 			fileUrl,
 			originalFileName,
 		});
