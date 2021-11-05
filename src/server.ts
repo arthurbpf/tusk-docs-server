@@ -63,7 +63,7 @@ const main = async () => {
 
 	await connection.runMigrations();
 
-	server.use(cors);
+	server.use(cors());
 	server.use(express.json());
 	server.use(routes);
 	server.use(
