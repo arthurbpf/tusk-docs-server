@@ -2,6 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 import swaggerConfig from '@config/openapi.json';
 import { createConnection } from 'typeorm';
@@ -62,6 +63,7 @@ const main = async () => {
 
 	await connection.runMigrations();
 
+	server.use(cors);
 	server.use(express.json());
 	server.use(routes);
 	server.use(
