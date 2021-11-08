@@ -12,13 +12,13 @@ export default class SessionsController {
 
 			const authService = new AuthenticateUserService();
 
-			const token = await authService.execute({
+			const { token, user } = await authService.execute({
 				password,
 				email,
 				username,
 			});
 
-			return response.json({ token });
+			return response.json({ token, user });
 		} catch (error) {
 			next(error);
 		}
