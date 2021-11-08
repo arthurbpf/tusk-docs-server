@@ -4,10 +4,16 @@ import HashProvider from '@shared/providers/HashProvider';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
+import User from '../infra/typeorm/entities/User';
 
 type IRequest = {
 	password: string;
 } & ({ email: string; username?: never } | { email?: never; username: string });
+
+interface IResponse {
+	token: string;
+	user: User;
+}
 
 export default class AuthenticateUserService {
 	private usersRepository: IUsersRepository;
@@ -16,7 +22,7 @@ export default class AuthenticateUserService {
 		this.usersRepository = new UsersRepository();
 	}
 
-	public async execute(data: IRequest): Promise<string> {
+	public async execute(data: IRequest): Promise<IResponse> {
 		const genericError = new AppError('Invalid username/password informed');
 
 		if (!data.password || (!data.email && !data.username)) {
@@ -55,6 +61,6 @@ export default class AuthenticateUserService {
 			subject: user.id,
 		});
 
-		return token;
+		return { token, user };
 	}
 }
