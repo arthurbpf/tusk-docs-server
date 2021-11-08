@@ -20,6 +20,12 @@ export default class Document {
 	@Column({ type: 'varchar' })
 	description: string;
 
+	@Column({ type: 'date' })
+	dueDate: Date;
+
+	@Column({ type: 'float' })
+	value: number;
+
 	@Column({ type: 'varchar' })
 	fileUrl: string;
 

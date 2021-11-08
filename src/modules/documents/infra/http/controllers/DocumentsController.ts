@@ -8,7 +8,7 @@ export default class DocumentsController {
 		response: Response,
 		next: NextFunction,
 	): Promise<Response | undefined> {
-		const { title, description, clientId } = request.body;
+		const { title, description, dueDate, value, clientId } = request.body;
 
 		const file = request.file;
 
@@ -23,6 +23,8 @@ export default class DocumentsController {
 				title,
 				description,
 				clientId,
+				dueDate,
+				value,
 				fileBuffer: file.buffer,
 				originalFileName: file.originalname,
 			});

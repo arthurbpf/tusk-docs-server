@@ -4,6 +4,8 @@ export default interface ICreateClientDTO {
 	title: string;
 	description: string;
 	owner: Client;
+	dueDate: Date;
+	value: number;
 	fileUrl: string;
 	originalFileName: string;
 }

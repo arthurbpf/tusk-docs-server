@@ -8,6 +8,8 @@ import Document from '@modules/documents/infra/typeorm/entities/Document';
 interface IRequest {
 	title: string;
 	description: string;
+	dueDate: Date;
+	value: number;
 	clientId: string;
 	fileBuffer: Buffer;
 	originalFileName: string;
@@ -24,6 +26,8 @@ export default class CreateDocumentService {
 		const {
 			title,
 			description,
+			dueDate,
+			value,
 			clientId: ownerId,
 			fileBuffer,
 			originalFileName,
@@ -44,6 +48,8 @@ export default class CreateDocumentService {
 		return await this.documentsRepository.create({
 			title,
 			description,
+			dueDate,
+			value,
 			owner,
 			fileUrl,
 			originalFileName,
