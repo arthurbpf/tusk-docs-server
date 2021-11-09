@@ -23,6 +23,9 @@ export default class Document {
 	@Column({ type: 'date' })
 	dueDate: Date;
 
+	@Column({ type: 'boolean', default: false })
+	paid: boolean;
+
 	@Column({ type: 'float' })
 	value: number;
 

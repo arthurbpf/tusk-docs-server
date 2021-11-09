@@ -1,8 +1,10 @@
 import Client from '@modules/clients/infra/typeorm/entities/Client';
 import ICreateDocumentDTO from '@modules/documents/dtos/ICreateDocumentDTO';
 import IListDocumentsFilter from '@modules/documents/dtos/IListDocumentsFilter';
+import IListOverdueDocumentsFilter from '@modules/documents/dtos/IListOverdueDocumentsFilter';
 import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
-import { getRepository, Repository } from 'typeorm';
+import User from '@modules/users/infra/typeorm/entities/User';
+import { getRepository, LessThan, Repository } from 'typeorm';
 import Document from '../entities/Document';
 
 export default class DocumentsRepository implements IDocumentsRepository {
@@ -66,6 +68,38 @@ export default class DocumentsRepository implements IDocumentsRepository {
 			where: {
 				owner: client,
 			},
+		});
+	}
+
+	public async listOverdue(
+		filters: IListOverdueDocumentsFilter,
+	): Promise<Document[]> {
+		const { user, date } = filters;
+
+		return await this.ormRepository.find({
+			where: {
+				owner: {
+					createdBy: {
+						id: user.id,
+					},
+				},
+				dueDate: LessThan(date),
+			},
+			relations: ['owner'],
+		});
+	}
+
+	public async listUnpaid(user: User): Promise<Document[]> {
+		return await this.ormRepository.find({
+			where: {
+				owner: {
+					createdBy: {
+						id: user.id,
+					},
+				},
+				paid: false,
+			},
+			relations: ['owner'],
 		});
 	}
 }
