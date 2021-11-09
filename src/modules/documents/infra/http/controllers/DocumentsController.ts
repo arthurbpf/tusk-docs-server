@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import CreateDocumentService from '@modules/documents/services/CreateDocumentService';
 import AppError from '@shared/errors/AppError';
+import ListDocumentsService from '@modules/documents/services/ListDocumentsService';
 
 export default class DocumentsController {
 	public async create(
@@ -40,18 +41,13 @@ export default class DocumentsController {
 		response: Response,
 		next: NextFunction,
 	): Promise<Response | undefined> {
-		const { ownerId } = request.query;
+		const { ...filters } = request.params;
+		const user = request.user;
 
-		if (!ownerId || typeof ownerId !== 'string') {
-			throw new AppError('A owner id must be specified', 401);
-		}
+		const service = new ListDocumentsService();
 
-		// const service = new ListDocumentsByClientService();
+		const documents = await service.execute({ user, filters });
 
-		// const documents = await service.execute({
-		// 	ownerId,
-		// });
-
-		return response.json(/*documents*/);
+		return response.json(documents);
 	}
 }

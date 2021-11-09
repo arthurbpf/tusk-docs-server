@@ -1,7 +1,7 @@
 import Client from '@modules/clients/infra/typeorm/entities/Client';
 import ICreateDocumentDTO from '@modules/documents/dtos/ICreateDocumentDTO';
+import IListDocumentsFilter from '@modules/documents/dtos/IListDocumentsFilter';
 import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
-import IFilter from '@shared/dtos/IFilter';
 import { getRepository, Repository } from 'typeorm';
 import Document from '../entities/Document';
 
@@ -44,11 +44,20 @@ export default class DocumentsRepository implements IDocumentsRepository {
 		});
 	}
 
-	public async list(filters: IFilter[]): Promise<Document[]> {
+	public async list(
+		filtersObject: IListDocumentsFilter,
+	): Promise<Document[]> {
+		const { user, filters } = filtersObject;
 		return await this.ormRepository.find({
 			where: {
-				filters,
+				owner: {
+					createdBy: {
+						id: user.id,
+					},
+				},
+				...filters,
 			},
+			relations: ['owner'],
 		});
 	}
 

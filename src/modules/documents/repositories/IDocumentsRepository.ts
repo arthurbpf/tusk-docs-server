@@ -1,11 +1,11 @@
 import Client from '@modules/clients/infra/typeorm/entities/Client';
 import Document from '../infra/typeorm/entities/Document';
 import ICreateDocumentDTO from '../dtos/ICreateDocumentDTO';
-import IFilter from '@shared/dtos/IFilter';
+import IListDocumentsFilter from '../dtos/IListDocumentsFilter';
 
 export default interface IDocumentsRepository {
 	create(dto: ICreateDocumentDTO): Promise<Document>;
 	findById(id: string): Promise<Document | undefined>;
-	list(filters: IFilter[]): Promise<Document[]>;
+	list(filters: IListDocumentsFilter): Promise<Document[]>;
 	listByClient(client: Client): Promise<Document[]>;
 }
