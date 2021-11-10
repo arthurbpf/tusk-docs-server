@@ -95,6 +95,7 @@ export default class DocumentsRepository implements IDocumentsRepository {
 					},
 				},
 				dueDate: LessThan(date),
+				paid: false,
 			},
 			relations: ['owner'],
 		});
