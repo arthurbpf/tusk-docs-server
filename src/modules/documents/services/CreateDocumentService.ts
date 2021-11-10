@@ -38,7 +38,7 @@ export default class CreateDocumentService {
 		const owner = await findClientService.execute(ownerId);
 
 		if (!owner) {
-			throw new AppError('Client with specified ID not found', 401);
+			throw new AppError('Client with specified ID not found', 404);
 		}
 
 		const imageProvider = new ImageBbProvider();

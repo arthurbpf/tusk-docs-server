@@ -1,8 +1,6 @@
 import CreateClientService from '@modules/clients/services/CreateClientService';
-import FindClientByIdService from '@modules/clients/services/FindClientByIdService';
 import ListUserClientsService from '@modules/clients/services/ListUserClientsService';
 import ListDocumentsByClientService from '@modules/documents/services/ListDocumentsByClientService';
-import ListDocumentService from '@modules/documents/services/ListDocumentsByClientService';
 import AppError from '@shared/errors/AppError';
 import { Request, Response, NextFunction } from 'express';
 

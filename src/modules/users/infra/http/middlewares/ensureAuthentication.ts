@@ -19,7 +19,7 @@ export default async function ensureAuthentication(
 		const authHeader = request.headers.authorization;
 
 		if (!authHeader) {
-			throw new AppError('JWT token is missing', 401);
+			throw new AppError('JWT token is missing', 400);
 		}
 
 		const [, token] = authHeader.split(' ');
@@ -40,7 +40,7 @@ export default async function ensureAuthentication(
 		const user = await getUserInfo.execute(sub);
 
 		if (!user) {
-			throw new AppError('User not found', 401);
+			throw new AppError('User not found', 404);
 		}
 
 		request.user = user;

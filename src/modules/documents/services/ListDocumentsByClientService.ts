@@ -23,7 +23,7 @@ export default class ListDocumentsByClientService {
 		const client = await findClientService.execute(ownerId);
 
 		if (!client) {
-			throw new AppError('Client with specified id not found', 401);
+			throw new AppError('Client with specified id not found', 404);
 		}
 
 		return await this.documentsRepository.listByClient(client);

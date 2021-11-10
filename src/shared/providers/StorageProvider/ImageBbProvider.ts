@@ -25,7 +25,7 @@ class ImageBbProvider {
 
 			return url;
 		} catch (error) {
-			throw new AppError('imagebb API not responding');
+			return '';
 		}
 	}
 }

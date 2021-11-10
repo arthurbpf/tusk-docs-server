@@ -12,5 +12,6 @@ const documentsController = new DocumentsController();
 router.use(ensureAuthentication);
 router.post('/', upload.single('file'), documentsController.create);
 router.get('/', documentsController.listDocuments);
+router.patch('/:id', documentsController.patchDocument);
 
 export default router;

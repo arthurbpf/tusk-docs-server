@@ -2,9 +2,10 @@ import Client from '@modules/clients/infra/typeorm/entities/Client';
 import ICreateDocumentDTO from '@modules/documents/dtos/ICreateDocumentDTO';
 import IListDocumentsFilter from '@modules/documents/dtos/IListDocumentsFilter';
 import IListOverdueDocumentsFilter from '@modules/documents/dtos/IListOverdueDocumentsFilter';
+import IUpdateDocumentDTO from '@modules/documents/dtos/IUpdateDocumentDTO';
 import IDocumentsRepository from '@modules/documents/repositories/IDocumentsRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
-import { getRepository, LessThan, Repository } from 'typeorm';
+import { getRepository, LessThan, Repository, UpdateResult } from 'typeorm';
 import Document from '../entities/Document';
 
 export default class DocumentsRepository implements IDocumentsRepository {
@@ -36,6 +37,16 @@ export default class DocumentsRepository implements IDocumentsRepository {
 		});
 
 		return await this.ormRepository.save(createdDocument);
+	}
+
+	public async update(
+		dto: IUpdateDocumentDTO,
+	): Promise<Document | undefined> {
+		const { id, properties } = dto;
+
+		await this.ormRepository.update(id, properties);
+
+		return await this.ormRepository.findOne({ where: { id } });
 	}
 
 	public async findById(id: string): Promise<Document | undefined> {

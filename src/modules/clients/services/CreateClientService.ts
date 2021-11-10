@@ -15,10 +15,10 @@ export default class CreateClientService {
 		const { name, description, createdBy } = dto;
 
 		if (!name) {
-			throw new AppError('Name must not be empty.', 401);
+			throw new AppError('Name must not be empty.', 400);
 		}
 		if (!description) {
-			throw new AppError('Description must not be empty.', 401);
+			throw new AppError('Description must not be empty.', 400);
 		}
 
 		return await this.clientsRepository.create({
